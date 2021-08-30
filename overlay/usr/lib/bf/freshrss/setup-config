@@ -1,0 +1,38 @@
+#!/usr/bin/with-contenv bash
+
+set -euo pipefail
+export BF_E=`basename ${0}`
+
+
+#======================================================================================================================
+# If an existing installation was detected, do not proceed.
+#======================================================================================================================
+
+if [ "${FRESHRSS_INSTALLED-}" = "1" ] ; then
+    bf-echo "Existing installation detected - do not regenerate configuration."
+    exit 0
+fi
+
+
+#======================================================================================================================
+# Generate config from environment variables.
+#======================================================================================================================
+
+# ensure all required environment variables are set
+[[ -z "${FRESHRSS_BASE_URL-}" ]] && bf-error "FRESHRSS_BASE_URL must be set."
+[[ -z "${FRESHRSS_DB_HOST-}" ]] && bf-error "FRESHRSS_DB_HOST must be set."
+[[ -z "${FRESHRSS_DB_USER-}" ]] && bf-error "FRESHRSS_DB_USER must be set."
+[[ -z "${FRESHRSS_DB_PASS-}" ]] && bf-error "FRESHRSS_DB_PASS must be set."
+[[ -z "${FRESHRSS_DB_NAME-}" ]] && bf-error "FRESHRSS_DB_NAME must be set."
+
+# generate a new salt
+SALT_FILE=mktemp
+bf-rnd >> ${SALT_FILE}
+SALT=`sha1sum ${SALT_FILE} | awk '{print $1}'`
+bf-env "FRESHRSS_SALT" ${SALT}
+
+# generate config from the template
+bf-debug "Generating ${FRESHRSS_CONFIG}."
+esh -o ${FRESHRSS_CONFIG} \
+    ${BF_TEMPLATES}/config.php.esh
+bf-done
