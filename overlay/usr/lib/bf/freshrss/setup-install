@@ -1,0 +1,72 @@
+#!/usr/bin/with-contenv bash
+
+set -euo pipefail
+export BF_E=`basename ${0}`
+
+
+#======================================================================================================================
+# If an existing installation was detected, do not proceed.
+#======================================================================================================================
+
+if [ "${FRESHRSS_INSTALLED-}" = "1" ] ; then
+    bf-echo "Existing installation detected - do not reinstall."
+    exit 0
+fi
+
+
+#======================================================================================================================
+# Ensure all required environment variables are set.
+#======================================================================================================================
+
+[[ -z "${FRESHRSS_USER_NAME-}" ]] && bf-error "FRESHRSS_USER_NAME must be set."
+[[ -z "${FRESHRSS_USER_PASS-}" ]] && bf-error "FRESHRSS_USER_PASS must be set."
+[[ -z "${FRESHRSS_BASE_URL-}" ]] && bf-error "FRESHRSS_BASE_URL must be set."
+[[ -z "${FRESHRSS_DB_HOST-}" ]] && bf-error "FRESHRSS_DB_HOST must be set."
+[[ -z "${FRESHRSS_DB_USER-}" ]] && bf-error "FRESHRSS_DB_USER must be set."
+[[ -z "${FRESHRSS_DB_PASS-}" ]] && bf-error "FRESHRSS_DB_PASS must be set."
+[[ -z "${FRESHRSS_DB_NAME-}" ]] && bf-error "FRESHRSS_DB_NAME must be set."
+
+
+#======================================================================================================================
+# Use CLI to run automated installation.
+#======================================================================================================================
+
+bf-echo "Installing FreshRSS..."
+cd "${FRESHRSS_CLI}"
+
+# ensure all the needed directories are in /data
+bf-echo " .. preparing ${FRESHRSS_DATA}"
+php ./prepare.php
+
+# do install
+bf-echo " .. installing database"
+php ./do-install.php \
+    --default_user "${FRESHRSS_USER_NAME}" \
+    --base_url "${FRESHRSS_BASE_URL}" \
+    --db-type "mysql" \
+    --db-host "${FRESHRSS_DB_HOST}" \
+    --db-user "${FRESHRSS_DB_USER}" \
+    --db-password "${FRESHRSS_DB_PASS}" \
+    --db-base "${FRESHRSS_DB_NAME}" \
+    --db-prefix "fr_"
+
+# create user
+bf-echo " .. creating user"
+php ./create-user.php \
+    --user "${FRESHRSS_USER_NAME}" \
+    --password "${FRESHRSS_USER_PASS}"
+php ./actualize-user.php \
+    --user "${FRESHRSS_USER_NAME}"
+
+# disable updates
+bf-echo " .. disabling updates"
+php ./reconfigure.php \
+    --disable_update "true"
+bf-done
+
+
+#======================================================================================================================
+# Set permissions.
+#======================================================================================================================
+
+bf-fix-attrs

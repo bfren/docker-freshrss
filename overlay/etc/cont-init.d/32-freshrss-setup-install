@@ -1,0 +1,19 @@
+#!/usr/bin/with-contenv bash
+
+set -euo pipefail
+export BF_E=`basename ${0}`
+
+
+#======================================================================================================================
+# If FRESHRSS_DATA_SRC is not a symlink, the content setup has not worked correctly.
+#======================================================================================================================
+
+[[ ! -L "${FRESHRSS_DATA_SRC}" ]] && bf-error "${FRESHRSS_DATA_SRC} is not set up correctly."
+
+
+#======================================================================================================================
+# Run setup content executable.
+#======================================================================================================================
+
+${FRESHRSS_LIB}/setup-install
+freshrss-setup-complete

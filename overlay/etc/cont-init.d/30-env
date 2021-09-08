@@ -1,0 +1,18 @@
+#!/usr/bin/with-contenv sh
+
+set -euo pipefail
+export BF_E=`basename ${0}`
+
+
+#======================================================================================================================
+# Add environment variables.
+#======================================================================================================================
+
+bf-env "FRESHRSS_LIB" "${BF_LIB}/freshrss"
+
+FRESHRSS_DATA="/data"
+bf-env "FRESHRSS_DATA" "${FRESHRSS_DATA}"
+bf-env "FRESHRSS_CONFIG" "${FRESHRSS_DATA}/config.php"
+
+bf-env "FRESHRSS_CLI" "${FRESHRSS_SRC}/cli"
+bf-env "FRESHRSS_DATA_SRC" "${FRESHRSS_SRC}/data"

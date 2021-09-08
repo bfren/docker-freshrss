@@ -1,0 +1,89 @@
+#!/bin/sh
+
+set -euo pipefail
+export BF_E=`basename ${0}`
+
+
+#======================================================================================================================
+# Get PHP version.
+#======================================================================================================================
+
+cd /tmp
+
+PHP_VERSION=$(cat PHP_VERSION)
+bf-debug "PHP version ${PHP_VERSION}."
+
+
+#======================================================================================================================
+# Install PHP dependencies.
+#======================================================================================================================
+
+bf-echo "Installing installation dependencies..."
+apk add --no-cache --virtual .install \
+    git
+bf-done
+
+bf-echo "Installing required PHP modules for v${PHP_VERSION}..."
+apk add --no-cache \
+    php8=${PHP_VERSION} \
+    php8-ctype=${PHP_VERSION} \
+    php8-curl=${PHP_VERSION} \
+    php8-dom=${PHP_VERSION} \
+    php8-fileinfo=${PHP_VERSION} \
+    php8-gmp=${PHP_VERSION} \
+    php8-iconv=${PHP_VERSION} \
+    php8-intl=${PHP_VERSION} \
+    php8-mbstring=${PHP_VERSION} \
+    php8-opcache=${PHP_VERSION} \
+    php8-pdo_mysql=${PHP_VERSION} \
+    php8-phar=${PHP_VERSION} \
+    php8-session=${PHP_VERSION} \
+    php8-simplexml=${PHP_VERSION} \
+    php8-tokenizer=${PHP_VERSION} \
+    php8-xml=${PHP_VERSION} \
+    php8-xmlreader=${PHP_VERSION} \
+    php8-xmlwriter=${PHP_VERSION} \
+    php8-zip=${PHP_VERSION}
+bf-done
+
+
+#======================================================================================================================
+# Get FreeScout environment variables.
+#======================================================================================================================
+
+SRC=/etc/bf/src
+bf-debug "Source directory: ${SRC}."
+
+FRESHRSS=freshrss
+FRESHRSS_SRC=${SRC}/${FRESHRSS}
+bf-debug "FreshRSS source directory: ${FRESHRSS_SRC}."
+
+FRESHRSS_VERSION=$(cat FRESHRSS_VERSION)
+bf-debug "FreshRSS version ${FRESHRSS_VERSION}."
+
+
+#======================================================================================================================
+# Download and install FreshRSS.
+#======================================================================================================================
+
+bf-echo "Cloning FreshRSS v${FRESHRSS_VERSION} into ${FRESHRSS_SRC}"
+git clone --depth 1 --branch ${FRESHRSS_VERSION} https://github.com/FreshRSS/FreshRSS ${FRESHRSS_SRC}
+bf-done
+
+
+#======================================================================================================================
+# Set permissions on source files.
+#======================================================================================================================
+
+bf-echo "Setting permissions on ${FRESHRSS_SRC}..."
+bf-ch -o www:www -m 0755 -t d ${FRESHRSS_SRC}
+bf-ch -o www:www -m 0644 -t f ${FRESHRSS_SRC}
+bf-done
+
+
+#======================================================================================================================
+# Cleanup.
+#======================================================================================================================
+
+bf-debug "Removing /www files."
+rm -f /www/*
