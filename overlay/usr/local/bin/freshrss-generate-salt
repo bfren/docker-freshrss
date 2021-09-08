@@ -9,6 +9,9 @@ export BF_E=`basename ${0}`
 #======================================================================================================================
 
 SALT_FILE=mktemp
+bf-debug "Generating salt into ${SALT_FILE}."
+
 bf-rnd >> ${SALT_FILE}
 SALT=`sha1sum ${SALT_FILE} | awk '{print $1}'`
-echo "${SALT}"
+
+bf-env "FRESHRSS_SALT" "${SALT}"
