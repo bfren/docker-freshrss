@@ -30,7 +30,7 @@ if [ "$(ls -A ${FRESHRSS_DATA})" ] ; then
 else
 
     bf-echo "Moving ${FRESHRSS_DATA_SRC} files and directories..."
-    mv ${FRESHRSS_DATA_SRC}/* ${FRESHRSS_DATA}
+    mv ${FRESHRSS_DATA_SRC}/* ${FRESHRSS_DATA}/
     bf-done
 
     bf-echo "Deleting ${FRESHRSS_DATA_SRC} and recreating it as a link to ${FRESHRSS_DATA}..."
