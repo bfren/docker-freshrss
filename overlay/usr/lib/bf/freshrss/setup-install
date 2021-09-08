@@ -54,6 +54,6 @@ php ./create-user.php \
 bf-done
 
 # disable updates
-bf.debug "Disabling updates."
+bf-debug "Disabling updates."
 php ./reconfigure.php \
     --disable_update "true"

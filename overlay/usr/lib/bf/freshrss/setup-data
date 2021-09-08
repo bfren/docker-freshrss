@@ -42,9 +42,13 @@ fi
 # Create symlink and set permissions.
 #======================================================================================================================
 
-bf-echo "Recreating ${FRESHRSS_DATA_SRC} as a link to ${FRESHRSS_DATA}..."
-ln -s ${FRESHRSS_DATA} ${FRESHRSS_DATA_SRC}
-bf-done
+if [ ! -L ${FRESHRSS_DATA_SRC} ] ; then
+
+    bf-echo "Recreating ${FRESHRSS_DATA_SRC} as a link to ${FRESHRSS_DATA}..."
+    ln -s ${FRESHRSS_DATA} ${FRESHRSS_DATA_SRC}
+    bf-done
+
+fi
 
 bf-fix-attrs
 
