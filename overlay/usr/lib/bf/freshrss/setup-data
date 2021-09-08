@@ -5,52 +5,17 @@ export BF_E=`basename ${0}`
 
 
 #======================================================================================================================
-# If FRESHRSS_DATA already has content in it, delete source directory so it can be linked to FRESHRSS_DATA...
-#======================================================================================================================
-
-if [ "$(ls -A ${FRESHRSS_DATA})" ] ; then
-
-    bf-debug "${FRESHRSS_DATA} is not empty."
-
-    if [ ! -L ${FRESHRSS_DATA_SRC} ] ; then
-
-        bf-echo "Deleting ${FRESHRSS_DATA_SRC} so it can be turned into a symlink..."
-        rm -rf ${FRESHRSS_DATA_SRC}
-        bf-done
-
-    fi
-
-
-#======================================================================================================================
-# ...otherwise, move all data files and directories in source to FRESHRSS_DATA and create a link.
-#======================================================================================================================
-
-else
-
-    bf-echo "Moving ${FRESHRSS_DATA_SRC} files and directories..."
-    mv ${FRESHRSS_DATA_SRC}/* ${FRESHRSS_DATA}/
-    bf-done
-
-    bf-echo "Deleting ${FRESHRSS_DATA_SRC} so it can be turned into a symlink..."
-    rm -rf ${FRESHRSS_DATA_SRC}
-    bf-done
-
-fi
-
-
-#======================================================================================================================
-# Create symlink and set permissions.
+# Create /data symlink.
 #======================================================================================================================
 
 if [ ! -L ${FRESHRSS_DATA_SRC} ] ; then
 
-    bf-echo "Recreating ${FRESHRSS_DATA_SRC} as a link to ${FRESHRSS_DATA}..."
+    bf-echo "Deleting ${FRESHRSS_DATA_SRC} and recreating it as a symlink..."
+    rm -rf ${FRESHRSS_DATA_SRC}
     ln -s ${FRESHRSS_DATA} ${FRESHRSS_DATA_SRC}
     bf-done
 
 fi
-
-bf-fix-attrs
 
 
 #======================================================================================================================

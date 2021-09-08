@@ -15,10 +15,9 @@ fi
 
 
 #======================================================================================================================
-# Use CLI to run automated installation.
+# Ensure all required environment variables are set.
 #======================================================================================================================
 
-# ensure all required environment variables are set
 [[ -z "${FRESHRSS_DEFAULT_USER-}" ]] && bf-error "FRESHRSS_DEFAULT_USER must be set."
 [[ -z "${FRESHRSS_DEFAULT_PASS-}" ]] && bf-error "FRESHRSS_DEFAULT_PASS must be set."
 [[ -z "${FRESHRSS_BASE_URL-}" ]] && bf-error "FRESHRSS_BASE_URL must be set."
@@ -26,6 +25,11 @@ fi
 [[ -z "${FRESHRSS_DB_USER-}" ]] && bf-error "FRESHRSS_DB_USER must be set."
 [[ -z "${FRESHRSS_DB_PASS-}" ]] && bf-error "FRESHRSS_DB_PASS must be set."
 [[ -z "${FRESHRSS_DB_NAME-}" ]] && bf-error "FRESHRSS_DB_NAME must be set."
+
+
+#======================================================================================================================
+# Use CLI to run automated installation.
+#======================================================================================================================
 
 bf-echo "Installing FreshRSS..."
 cd "${FRESHRSS_CLI}"
@@ -45,7 +49,6 @@ php ./do-install.php \
     --db-password "${FRESHRSS_DB_PASS}" \
     --db-base "${FRESHRSS_DB_NAME}" \
     --db-prefix "fr_"
-
 
 # create user
 bf-echo " .. creating user"
