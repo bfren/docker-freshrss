@@ -27,11 +27,14 @@ fi
 [[ -z "${FRESHRSS_DB_PASS-}" ]] && bf-error "FRESHRSS_DB_PASS must be set."
 [[ -z "${FRESHRSS_DB_NAME-}" ]] && bf-error "FRESHRSS_DB_NAME must be set."
 
+cd "${FRESHRSS_CLI}"
+
 # ensure all the needed directories are in /data
+bf-debug "Preparing for installation."
 php ./prepare.php
 
 # do install
-cd "${FRESHRSS_CLI}"
+bf-echo "Running installation..."
 php ./do-install.php \
     --default_user "${FRESHRSS_DEFAULT_USER}" \
     --base_url "${FRESHRSS_BASE_URL}" \
@@ -42,11 +45,15 @@ php ./do-install.php \
     --db-base "${FRESHRSS_DB_NAME}" \
     --db-prefix "fr_"
 
+
 # create user
+bf-echo "Creating user..."
 php ./create-user.php \
     --user "${FRESHRSS_DEFAULT_USER}" \
     --password "${FRESHRSS_DEFAULT_PASS}"
+bf-done
 
 # disable updates
+bf.debug "Disabling updates."
 php ./reconfigure.php \
     --disable_update "true"
