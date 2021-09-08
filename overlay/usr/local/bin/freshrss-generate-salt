@@ -8,10 +8,13 @@ export BF_E=`basename ${0}`
 # Generate a new salt.
 #======================================================================================================================
 
-SALT_FILE=mktemp
-bf-debug "Generating salt into ${SALT_FILE}."
+SALT_FILE=`mktemp`
+bf-debug "Saving random string into ${SALT_FILE}."
 
+RND=`bf-rnd`
 bf-rnd >> ${SALT_FILE}
+
+bf-debug "Generating salt."
 SALT=`sha1sum ${SALT_FILE} | awk '{print $1}'`
 
 bf-env "FRESHRSS_SALT" "${SALT}"
