@@ -52,6 +52,8 @@ bf-echo " .. creating user"
 php ./create-user.php \
     --user "${FRESHRSS_DEFAULT_USER}" \
     --password "${FRESHRSS_DEFAULT_PASS}"
+php ./actualize-user.php \
+    --user "${FRESHRSS_DEFAULT_USER}"
 
 # disable updates
 bf-echo " .. disabling updates"
