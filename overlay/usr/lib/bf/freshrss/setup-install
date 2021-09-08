@@ -30,8 +30,7 @@ fi
 # do install
 cd "${FRESHRSS_CLI}"
 php ./do-install.php \
-    --default-user "${FRESHRSS_DEFAULT_USER}" \
-    --password "${FRESHRSS_DEFAULT_PASS}" \
+    --default_user "${FRESHRSS_DEFAULT_USER}" \
     --base_url "${FRESHRSS_BASE_URL}" \
     --db-type "mysql" \
     --db-host "${FRESHRSS_DB_HOST}" \
