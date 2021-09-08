@@ -26,7 +26,8 @@ fi
 [[ -z "${FRESHRSS_DB_NAME-}" ]] && bf-error "FRESHRSS_DB_NAME must be set."
 
 # generate a new salt
-SALT=$(freshrss-get-salt)
+bf-debug "Generating salt."
+SALT=`freshrss-get-salt`
 bf-env "FRESHRSS_SALT" "${SALT}"
 
 # generate config from the template
