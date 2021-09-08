@@ -25,9 +25,6 @@ fi
 [[ -z "${FRESHRSS_DB_PASS-}" ]] && bf-error "FRESHRSS_DB_PASS must be set."
 [[ -z "${FRESHRSS_DB_NAME-}" ]] && bf-error "FRESHRSS_DB_NAME must be set."
 
-# generate a new salt
-freshrss-generate-salt
-
 # generate config from the template
 bf-debug "Generating ${FRESHRSS_CONFIG}."
 esh -o ${FRESHRSS_CONFIG} \
