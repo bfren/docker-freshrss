@@ -12,7 +12,8 @@ export BF_E=`basename ${0}`
 
 
 #======================================================================================================================
-# Generate a new salt.
+# Run setup content executable.
 #======================================================================================================================
 
-freshrss-generate-salt
+${FRESHRSS_LIB}/setup-install
+freshrss-setup-complete

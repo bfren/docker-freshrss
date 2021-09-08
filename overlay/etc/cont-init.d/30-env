@@ -14,4 +14,5 @@ FRESHRSS_DATA="/data"
 bf-env "FRESHRSS_DATA" "${FRESHRSS_DATA}"
 bf-env "FRESHRSS_CONFIG" "${FRESHRSS_DATA}/config.php"
 
+bf-env "FRESHRSS_CLI" "${FRESHRSS_SRC}/cli"
 bf-env "FRESHRSS_DATA_SRC" "${FRESHRSS_SRC}/data"

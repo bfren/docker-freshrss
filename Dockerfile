@@ -3,6 +3,10 @@ FROM bfren/nginx-php:php8.0-2.2.11
 ENV \
     # base URL of FreshRSS instance
     FRESHRSS_BASE_URL= \
+    # [Optional] default user name
+    FRESHRSS_DEFAULT_USER= \
+    # [Optional] default user password
+    FRESHRSS_DEFAULT_PASS= \
     # MySQL / MariaDB database host
     FRESHRSS_DB_HOST= \
     # MySQL / MariaDB database user

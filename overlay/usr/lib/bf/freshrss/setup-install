@@ -9,24 +9,38 @@ export BF_E=`basename ${0}`
 #======================================================================================================================
 
 if [ "${FRESHRSS_INSTALLED-}" = "1" ] ; then
-    bf-echo "Existing installation detected - do not regenerate configuration."
+    bf-echo "Existing installation detected - do not reinstall."
     exit 0
 fi
 
 
 #======================================================================================================================
-# Generate config from environment variables.
+# Use CLI to run automated installation.
 #======================================================================================================================
 
 # ensure all required environment variables are set
+[[ -z "${FRESHRSS_DEFAULT_USER-}" ]] && bf-error "FRESHRSS_DEFAULT_USER must be set."
+[[ -z "${FRESHRSS_DEFAULT_PASS-}" ]] && bf-error "FRESHRSS_DEFAULT_PASS must be set."
 [[ -z "${FRESHRSS_BASE_URL-}" ]] && bf-error "FRESHRSS_BASE_URL must be set."
 [[ -z "${FRESHRSS_DB_HOST-}" ]] && bf-error "FRESHRSS_DB_HOST must be set."
 [[ -z "${FRESHRSS_DB_USER-}" ]] && bf-error "FRESHRSS_DB_USER must be set."
 [[ -z "${FRESHRSS_DB_PASS-}" ]] && bf-error "FRESHRSS_DB_PASS must be set."
 [[ -z "${FRESHRSS_DB_NAME-}" ]] && bf-error "FRESHRSS_DB_NAME must be set."
 
-# generate config from the template
-bf-debug "Generating ${FRESHRSS_CONFIG}."
-esh -o ${FRESHRSS_CONFIG} \
-    ${BF_TEMPLATES}/config.php.esh
-bf-done
+# do install
+cd "${FRESHRSS_CLI}"
+php ./do-install.php \
+    --default-user "${FRESHRSS_DEFAULT_USER}" \
+    --password "${FRESHRSS_DEFAULT_PASS}" \
+    --base_url "${FRESHRSS_BASE_URL}" \
+    --db-type "mysql" \
+    --db-host "${FRESHRSS_DB_HOST}" \
+    --db-user "${FRESHRSS_DB_USER}" \
+    --db-password "${FRESHRSS_DB_PASS}" \
+    --db-base "${FRESHRSS_DB_NAME}" \
+    --db-prefix "fr_"
+
+# create user
+php ./create-user.php \
+    --user "${FRESHRSS_DEFAULT_USER}" \
+    --password "${FRESHRSS_DEFAULT_PASS}"
