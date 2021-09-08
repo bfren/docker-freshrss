@@ -46,3 +46,7 @@ php ./do-install.php \
 php ./create-user.php \
     --user "${FRESHRSS_DEFAULT_USER}" \
     --password "${FRESHRSS_DEFAULT_PASS}"
+
+# disable updates
+php ./reconfigure.php \
+    --disable_update "true"
