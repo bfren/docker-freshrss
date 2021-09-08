@@ -27,7 +27,7 @@ fi
 
 # generate a new salt
 SALT=$(freshrss-get-salt)
-bf-env "FRESHRSS_SALT" ${SALT}
+bf-env "FRESHRSS_SALT" "${SALT}"
 
 # generate config from the template
 bf-debug "Generating ${FRESHRSS_CONFIG}."
