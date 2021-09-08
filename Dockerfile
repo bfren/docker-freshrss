@@ -4,9 +4,9 @@ ENV \
     # base URL of FreshRSS instance
     FRESHRSS_BASE_URL= \
     # [Optional] default user name
-    FRESHRSS_DEFAULT_USER= \
+    FRESHRSS_USER_NAME= \
     # [Optional] default user password
-    FRESHRSS_DEFAULT_PASS= \
+    FRESHRSS_USER_PASS= \
     # MySQL / MariaDB database host
     FRESHRSS_DB_HOST= \
     # MySQL / MariaDB database user

@@ -18,8 +18,8 @@ fi
 # Ensure all required environment variables are set.
 #======================================================================================================================
 
-[[ -z "${FRESHRSS_DEFAULT_USER-}" ]] && bf-error "FRESHRSS_DEFAULT_USER must be set."
-[[ -z "${FRESHRSS_DEFAULT_PASS-}" ]] && bf-error "FRESHRSS_DEFAULT_PASS must be set."
+[[ -z "${FRESHRSS_USER_NAME-}" ]] && bf-error "FRESHRSS_USER_NAME must be set."
+[[ -z "${FRESHRSS_USER_PASS-}" ]] && bf-error "FRESHRSS_USER_PASS must be set."
 [[ -z "${FRESHRSS_BASE_URL-}" ]] && bf-error "FRESHRSS_BASE_URL must be set."
 [[ -z "${FRESHRSS_DB_HOST-}" ]] && bf-error "FRESHRSS_DB_HOST must be set."
 [[ -z "${FRESHRSS_DB_USER-}" ]] && bf-error "FRESHRSS_DB_USER must be set."
@@ -41,7 +41,7 @@ php ./prepare.php
 # do install
 bf-echo " .. installing database"
 php ./do-install.php \
-    --default_user "${FRESHRSS_DEFAULT_USER}" \
+    --default_user "${FRESHRSS_USER_NAME}" \
     --base_url "${FRESHRSS_BASE_URL}" \
     --db-type "mysql" \
     --db-host "${FRESHRSS_DB_HOST}" \
@@ -53,10 +53,10 @@ php ./do-install.php \
 # create user
 bf-echo " .. creating user"
 php ./create-user.php \
-    --user "${FRESHRSS_DEFAULT_USER}" \
-    --password "${FRESHRSS_DEFAULT_PASS}"
+    --user "${FRESHRSS_USER_NAME}" \
+    --password "${FRESHRSS_USER_PASS}"
 php ./actualize-user.php \
-    --user "${FRESHRSS_DEFAULT_USER}"
+    --user "${FRESHRSS_USER_NAME}"
 
 # disable updates
 bf-echo " .. disabling updates"
