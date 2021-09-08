@@ -14,7 +14,7 @@ if [ "$(ls -A ${FRESHRSS_DATA})" ] ; then
 
     if [ ! -L ${FRESHRSS_DATA_SRC} ] ; then
 
-        bf-echo "Deleting ${FRESHRSS_DATA_SRC} so it can be turned into a symlink."
+        bf-echo "Deleting ${FRESHRSS_DATA_SRC} so it can be turned into a symlink..."
         rm -rf ${FRESHRSS_DATA_SRC}
         bf-done
 
@@ -31,17 +31,20 @@ else
     mv ${FRESHRSS_DATA_SRC}/* ${FRESHRSS_DATA}/
     bf-done
 
-    bf-echo "Deleting ${FRESHRSS_DATA_SRC} and recreating it as a link to ${FRESHRSS_DATA}..."
+    bf-echo "Deleting ${FRESHRSS_DATA_SRC} so it can be turned into a symlink..."
     rm -rf ${FRESHRSS_DATA_SRC}
-    ln -s ${FRESHRSS_DATA} ${FRESHRSS_DATA_SRC}
     bf-done
 
 fi
 
 
 #======================================================================================================================
-# Set permissions.
+# Create symlink and set permissions.
 #======================================================================================================================
+
+bf-echo "Recreating ${FRESHRSS_DATA_SRC} as a link to ${FRESHRSS_DATA}..."
+ln -s ${FRESHRSS_DATA} ${FRESHRSS_DATA_SRC}
+bf-done
 
 bf-fix-attrs
 

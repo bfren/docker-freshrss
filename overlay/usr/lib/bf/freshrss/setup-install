@@ -27,6 +27,9 @@ fi
 [[ -z "${FRESHRSS_DB_PASS-}" ]] && bf-error "FRESHRSS_DB_PASS must be set."
 [[ -z "${FRESHRSS_DB_NAME-}" ]] && bf-error "FRESHRSS_DB_NAME must be set."
 
+# ensure all the needed directories are in /data
+php ./prepare.php
+
 # do install
 cd "${FRESHRSS_CLI}"
 php ./do-install.php \
