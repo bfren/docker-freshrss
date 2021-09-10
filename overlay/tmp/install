@@ -87,3 +87,6 @@ bf-done
 
 bf-debug "Removing /www files."
 rm -f /www/*
+
+bf-debug "Removing installation dependencies."
+apk del .install
