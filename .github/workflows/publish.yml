@@ -14,27 +14,27 @@ jobs:
         uses: actions/checkout@v2
       -
         name: Read FreshRSS version - major
-        uses: bfren/read-file-action@v1
+        uses: bfren/read-file@v1
         with:
           path: ./FRESHRSS_MAJOR
         id: freshrss_major
       -
         name: Read FreshRSS version - minor
-        uses: bfren/read-file-action@v1
+        uses: bfren/read-file@v1
         with:
           path: ./FRESHRSS_MINOR
         id: freshrss_minor
       -
         name: Read FreshRSS version - revision
-        uses: bfren/read-file-action@v1
+        uses: bfren/read-file@v1
         with:
           path: ./FRESHRSS_REVISION
         id: freshrss_revision
       -
         name: Read image version
-        uses: bfren/read-file-action@v1
+        uses: bfren/read-file@v1
         with:
-          path: ./VERSION
+          file: ./VERSION
         id: version
       -
         name: Set up QEMU
@@ -57,12 +57,12 @@ jobs:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           tags: |
             bfren/freshrss:latest
-            bfren/freshrss:${{ steps.version.outputs.content }}
-            bfren/freshrss:freshrss${{ steps.freshrss_major.outputs.content }}
-            bfren/freshrss:freshrss${{ steps.freshrss_major.outputs.content }}-${{ steps.version.outputs.content }}
-            bfren/freshrss:freshrss${{ steps.freshrss_minor.outputs.content }}
-            bfren/freshrss:freshrss${{ steps.freshrss_minor.outputs.content }}-${{ steps.version.outputs.content }}
-            bfren/freshrss:freshrss${{ steps.freshrss_revision.outputs.content }}
+            bfren/freshrss:${{ steps.version.outputs.contents }}
+            bfren/freshrss:freshrss${{ steps.freshrss_major.outputs.contents }}
+            bfren/freshrss:freshrss${{ steps.freshrss_major.outputs.contents }}-${{ steps.version.outputs.contents }}
+            bfren/freshrss:freshrss${{ steps.freshrss_minor.outputs.contents }}
+            bfren/freshrss:freshrss${{ steps.freshrss_minor.outputs.contents }}-${{ steps.version.outputs.contents }}
+            bfren/freshrss:freshrss${{ steps.freshrss_revision.outputs.contents }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
