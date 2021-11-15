@@ -1,4 +1,4 @@
-FROM bfren/nginx-php:php8.0-2.2.21
+FROM bfren/nginx-php:php8.0-3.0.1
 
 ENV \
     # base URL of FreshRSS instance
