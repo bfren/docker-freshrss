@@ -1,12 +1,11 @@
-#!/usr/bin/with-contenv bash
+#!/command/with-contenv bash
 
 set -euo pipefail
 export BF_E=`basename ${0}`
 
 
 #======================================================================================================================
-# Refresh FreshRSS.
+# Add setup complete environment variable.
 #======================================================================================================================
 
-bf-debug "Refreshing FreshRSS feeds."
-php ${FRESHRSS_SRC}/app/actualize_script.php
+bf-env "SETUP_COMPLETE" "1"

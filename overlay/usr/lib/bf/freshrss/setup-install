@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bash
+#!/command/with-contenv bash
 
 set -euo pipefail
 export BF_E=`basename ${0}`
@@ -63,10 +63,3 @@ bf-echo " .. disabling updates"
 php ./reconfigure.php \
     --disable_update "true"
 bf-done
-
-
-#======================================================================================================================
-# Set permissions.
-#======================================================================================================================
-
-bf-fix-attrs
