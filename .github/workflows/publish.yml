@@ -20,19 +20,19 @@ jobs:
         name: Read FreshRSS version - major
         uses: bfren/read-file@v1
         with:
-          file: ./FRESHRSS_MAJOR
+          file: ./overlay/tmp/FRESHRSS_MAJOR
         id: freshrss_major
       -
         name: Read FreshRSS version - minor
         uses: bfren/read-file@v1
         with:
-          file: ./FRESHRSS_MINOR
+          file: ./overlay/tmp/FRESHRSS_MINOR
         id: freshrss_minor
       -
         name: Read FreshRSS version - revision
         uses: bfren/read-file@v1
         with:
-          file: ./FRESHRSS_REVISION
+          file: ./overlay/tmp/FRESHRSS_REVISION
         id: freshrss_revision
       -
         name: Read image version

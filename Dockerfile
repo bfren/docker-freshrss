@@ -1,4 +1,4 @@
-FROM bfren/nginx-php:php8.0-4.2.0
+FROM bfren/nginx-php:php8.0-4.2.1
 
 ARG BF_IMAGE
 ARG BF_VERSION
@@ -20,7 +20,6 @@ ENV \
     FRESHRSS_DB_NAME=
 
 COPY ./overlay /
-COPY ./FRESHRSS_REVISION /tmp/
 
 RUN bf-install
 
