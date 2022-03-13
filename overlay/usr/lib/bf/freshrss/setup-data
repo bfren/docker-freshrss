@@ -1,7 +1,6 @@
-#!/command/with-contenv bash
+#!/bin/bash
 
 set -euo pipefail
-export BF_E=`basename ${0}`
 
 
 #======================================================================================================================
@@ -10,10 +9,10 @@ export BF_E=`basename ${0}`
 
 if [ ! -L ${FRESHRSS_DATA_SRC} ] ; then
 
-    bf-echo "Deleting ${FRESHRSS_DATA_SRC} and recreating it as a symlink..."
+    bf-echo "Deleting ${FRESHRSS_DATA_SRC} and recreating it as a symlink..." "freshrss/setup-data"
     rm -rf ${FRESHRSS_DATA_SRC}
     ln -s ${FRESHRSS_DATA} ${FRESHRSS_DATA_SRC}
-    bf-done
+    bf-done "freshrss/setup-data"
 
 fi
 
@@ -22,4 +21,4 @@ fi
 # If a valid config file exist, mark the installation as complete.
 #======================================================================================================================
 
-[[ -f "${FRESHRSS_CONFIG}" ]] && bf-env "FRESHRSS_INSTALLED" "1"
+[[ -f "${FRESHRSS_CONFIG}" ]] && bf-env "FRESHRSS_INSTALLED" "1" "freshrss/setup-data"
