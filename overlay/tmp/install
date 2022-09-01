@@ -25,25 +25,25 @@ bf-done
 
 bf-echo "Installing required PHP modules for v${PHP_VERSION}..."
 apk add --no-cache \
-    php8=${PHP_VERSION} \
-    php8-ctype=${PHP_VERSION} \
-    php8-curl=${PHP_VERSION} \
-    php8-dom=${PHP_VERSION} \
-    php8-fileinfo=${PHP_VERSION} \
-    php8-gmp=${PHP_VERSION} \
-    php8-iconv=${PHP_VERSION} \
-    php8-intl=${PHP_VERSION} \
-    php8-mbstring=${PHP_VERSION} \
-    php8-opcache=${PHP_VERSION} \
-    php8-pdo_mysql=${PHP_VERSION} \
-    php8-phar=${PHP_VERSION} \
-    php8-session=${PHP_VERSION} \
-    php8-simplexml=${PHP_VERSION} \
-    php8-tokenizer=${PHP_VERSION} \
-    php8-xml=${PHP_VERSION} \
-    php8-xmlreader=${PHP_VERSION} \
-    php8-xmlwriter=${PHP_VERSION} \
-    php8-zip=${PHP_VERSION}
+    php81=${PHP_VERSION} \
+    php81-ctype=${PHP_VERSION} \
+    php81-curl=${PHP_VERSION} \
+    php81-dom=${PHP_VERSION} \
+    php81-fileinfo=${PHP_VERSION} \
+    php81-gmp=${PHP_VERSION} \
+    php81-iconv=${PHP_VERSION} \
+    php81-intl=${PHP_VERSION} \
+    php81-mbstring=${PHP_VERSION} \
+    php81-opcache=${PHP_VERSION} \
+    php81-pdo_mysql=${PHP_VERSION} \
+    php81-phar=${PHP_VERSION} \
+    php81-session=${PHP_VERSION} \
+    php81-simplexml=${PHP_VERSION} \
+    php81-tokenizer=${PHP_VERSION} \
+    php81-xml=${PHP_VERSION} \
+    php81-xmlreader=${PHP_VERSION} \
+    php81-xmlwriter=${PHP_VERSION} \
+    php81-zip=${PHP_VERSION}
 bf-done
 
 
