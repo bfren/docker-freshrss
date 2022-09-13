@@ -6,6 +6,8 @@ ARG BF_IMAGE
 ARG BF_VERSION
 
 ENV \
+    # disable debug output by default
+    BF_DEBUG=0 \
     # base URL of FreshRSS instance
     FRESHRSS_BASE_URL= \
     # [Optional] default user name
