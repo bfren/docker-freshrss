@@ -23,7 +23,6 @@ fi
 [[ -z "${FRESHRSS_DB_HOST-}" ]] && bf-error "FRESHRSS_DB_HOST must be set." "freshrss/setup-install"
 [[ -z "${FRESHRSS_DB_USER-}" ]] && bf-error "FRESHRSS_DB_USER must be set." "freshrss/setup-install"
 [[ -z "${FRESHRSS_DB_PASS-}" ]] && bf-error "FRESHRSS_DB_PASS must be set." "freshrss/setup-install"
-[[ -z "${FRESHRSS_DB_NAME-}" ]] && bf-error "FRESHRSS_DB_NAME must be set." "freshrss/setup-install"
 
 
 #======================================================================================================================
@@ -41,13 +40,15 @@ php ./prepare.php
 bf-echo " .. installing database" "freshrss/setup-install"
 php ./do-install.php \
     --default_user "${FRESHRSS_USER_NAME}" \
+    --environment "${FRESHRSS_ENVIRONMENT}" \
     --base_url "${FRESHRSS_BASE_URL}" \
-    --db-type "mysql" \
+    --language "${FRESHRSS_LANG}" \
+    --db-type "${FRESHRSS_DB_TYPE}" \
     --db-host "${FRESHRSS_DB_HOST}" \
     --db-user "${FRESHRSS_DB_USER}" \
     --db-password "${FRESHRSS_DB_PASS}" \
     --db-base "${FRESHRSS_DB_NAME}" \
-    --db-prefix "fr_"
+    --db-prefix "${FRESHRSS_DB_PREFIX}_"
 
 # create user
 bf-echo " .. creating user" "freshrss/setup-install"

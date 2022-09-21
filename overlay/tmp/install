@@ -36,6 +36,8 @@ apk add --no-cache \
     php81-mbstring=${PHP_VERSION} \
     php81-opcache=${PHP_VERSION} \
     php81-pdo_mysql=${PHP_VERSION} \
+    php81-pdo_sqlite=${PHP_VERSION} \
+    php81-pdo_pgsql=${PHP_VERSION} \
     php81-phar=${PHP_VERSION} \
     php81-session=${PHP_VERSION} \
     php81-simplexml=${PHP_VERSION} \
