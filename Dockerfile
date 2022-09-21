@@ -28,8 +28,8 @@ ENV \
     FRESHRSS_DB_PASS= \
     # database name
     FRESHRSS_DB_NAME="freshrss"\
-    # database table prefix (will have an underscore added, e.g. 'freshrss_')
-    FRESHRSS_DB_PREFIX="freshrss"
+    # database table prefix (will have an underscore added, e.g. 'fr_')
+    FRESHRSS_DB_PREFIX="fr"
 
 COPY ./overlay /
 
