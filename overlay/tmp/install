@@ -25,27 +25,27 @@ bf-done
 
 bf-echo "Installing required PHP modules for v${PHP_VERSION}..."
 apk add --no-cache \
-    php82=${PHP_VERSION} \
-    php82-ctype=${PHP_VERSION} \
-    php82-curl=${PHP_VERSION} \
-    php82-dom=${PHP_VERSION} \
-    php82-fileinfo=${PHP_VERSION} \
-    php82-gmp=${PHP_VERSION} \
-    php82-iconv=${PHP_VERSION} \
-    php82-intl=${PHP_VERSION} \
-    php82-mbstring=${PHP_VERSION} \
-    php82-opcache=${PHP_VERSION} \
-    php82-pdo_mysql=${PHP_VERSION} \
-    php82-pdo_sqlite=${PHP_VERSION} \
-    php82-pdo_pgsql=${PHP_VERSION} \
-    php82-phar=${PHP_VERSION} \
-    php82-session=${PHP_VERSION} \
-    php82-simplexml=${PHP_VERSION} \
-    php82-tokenizer=${PHP_VERSION} \
-    php82-xml=${PHP_VERSION} \
-    php82-xmlreader=${PHP_VERSION} \
-    php82-xmlwriter=${PHP_VERSION} \
-    php82-zip=${PHP_VERSION}
+    php81=${PHP_VERSION} \
+    php81-ctype=${PHP_VERSION} \
+    php81-curl=${PHP_VERSION} \
+    php81-dom=${PHP_VERSION} \
+    php81-fileinfo=${PHP_VERSION} \
+    php81-gmp=${PHP_VERSION} \
+    php81-iconv=${PHP_VERSION} \
+    php81-intl=${PHP_VERSION} \
+    php81-mbstring=${PHP_VERSION} \
+    php81-opcache=${PHP_VERSION} \
+    php81-pdo_mysql=${PHP_VERSION} \
+    php81-pdo_sqlite=${PHP_VERSION} \
+    php81-pdo_pgsql=${PHP_VERSION} \
+    php81-phar=${PHP_VERSION} \
+    php81-session=${PHP_VERSION} \
+    php81-simplexml=${PHP_VERSION} \
+    php81-tokenizer=${PHP_VERSION} \
+    php81-xml=${PHP_VERSION} \
+    php81-xmlreader=${PHP_VERSION} \
+    php81-xmlwriter=${PHP_VERSION} \
+    php81-zip=${PHP_VERSION}
 bf-done
 
 
