@@ -10,4 +10,4 @@ export BF_E=`basename ${0}`
 
 FRESHRSS_SRC=${BF_SRC}/freshrss
 bf-env "FRESHRSS_SRC" "${FRESHRSS_SRC}"
-bf-env "NGINX_ROOT" "${FRESHRSS_SRC}/p"
+bf-env "NGINX_PUBLIC" "${FRESHRSS_SRC}/p"
