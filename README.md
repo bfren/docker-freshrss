@@ -23,7 +23,7 @@ Comes with [FreshRSS](https://freshrss.org/) preinstalled, along with all the re
 | -------- | ----------------------------------- |
 | `/data`  | Persistent storage for config, etc. |
 
-See the [Nginx](https://github.com/bfren/docker-nginx) image for other configuration details.
+See the [Nginx](https://github.com/bfren/docker-nginx) and [Nginx + PHP](https://github.com/bfren/docker-nginx-php) images for other configuration details.
 
 ## Environment Variables
 
