@@ -1,4 +1,4 @@
-FROM bfren/nginx-php:php8.2-6.0.21
+FROM bfren/nginx-php:php8.2-7.1.2
 
 LABEL org.opencontainers.image.source="https://github.com/bfren/docker-freshrss"
 
