@@ -3,9 +3,20 @@ use bf-freshrss
 bf env load
 
 def main [] {
-    # get variables
-    let fr_src_cli = bf env FR_SRC_CLI
+    # get source data directory
     let fr_src_data = bf env FR_SRC_DATA
+
+    # if data source is not a symlink, the content setup has not worked correctly
+    if ($fr_src_data | bf fs is_not_symlink) { bf write error $"($fr_src_data) is not set up correctly." }
+
+    # if an existing installation was detected, do not proceed
+    if (bf env check FR_INSTALLED) {
+        bf write "Existing installation detected - do not reinstall."
+        bf-freshrss install complete
+        return
+    }
+
+    # get variables
     let fr_user = bf env FR_USER
     let fr_pass = bf env FR_PASS
     let fr_environment = bf env FR_ENVIRONMENT
@@ -18,19 +29,9 @@ def main [] {
     let fr_db_name = bf env FR_DB_NAME
     let fr_db_prefix = bf env FR_DB_PREFIX
 
-    # if data source is not a symlink, the content setup has not worked correctly
-    if ($fr_src_data | bf fs is_not_symlink) { bf write error $"($fr_src_data) is not set up correctly." }
-
-    # if an existing installation was detected, do not proceed
-    if (bf env check FR_INSTALLED) {
-        bf write "Existing installation detected - do not reinstall."
-        bf-freshrss install complete
-        return
-    }
-
     # use CLI to run automated installation
     bf write "Using CLI to install FreshRSS."
-    cd $fr_src_cli
+    cd (bf env FR_SRC_CLI)
 
     # ensure all the needed directories are in the data dir
     bf write  " .. preparing data directories"
