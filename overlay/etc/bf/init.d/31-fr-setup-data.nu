@@ -3,6 +3,9 @@ use bf-freshrss
 bf env load
 
 def main [] {
+    # ensure source files exist
+    if (bf env FR_SRC | bf fs is_not_dir) { bf write error "FreshRSS source files cannot be found." }
+
     # get variables
     let fr_data = bf env FR_DATA
     let fr_src_data = bf env FR_SRC_DATA
