@@ -5,7 +5,7 @@ bf env load
 def main [] {
     # get variables
     let fr_data = bf env FR_DATA
-    let fr_src_data = bf env fr_src_data
+    let fr_src_data = bf env FR_SRC_DATA
 
     # ensure /data is symlinked from source
     if ($fr_src_data | bf fs is_not_symlink) {
