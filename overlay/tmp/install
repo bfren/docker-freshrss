@@ -3,7 +3,7 @@
 use bf
 use bf-php
 
-# Absolute path to WordPress source directory
+# Absolute path to FreshRSS source directory
 const src = "/etc/bf/src/freshrss"
 
 def main [] {
