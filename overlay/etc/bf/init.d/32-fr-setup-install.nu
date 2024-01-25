@@ -62,6 +62,10 @@ def main [] {
     bf write " .. disabling updates"
     ^php ./reconfigure.php --disable_update "true"
 
+    # reset permissions
+    cd ..
+    ^sh cli/access-permissions.sh
+
     # setup complete
     bf-freshrss install complete
 }
