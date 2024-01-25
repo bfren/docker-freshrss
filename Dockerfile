@@ -13,7 +13,7 @@ ENV \
     # base URL of FreshRSS instance
     BF_FR_BASE_URL= \
     # display language (see FreshRSS documentation for supported language)
-    BF_FR_LANG="en" \
+    BF_FR_LANGUAGE="en" \
     # default user name
     BF_FR_USER_NAME= \
     # default user password

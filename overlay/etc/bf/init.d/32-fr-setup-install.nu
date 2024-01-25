@@ -9,6 +9,7 @@ def main [] {
     let fr_user = bf env FR_USER
     let fr_pass = bf env FR_PASS
     let fr_environment = bf env FR_ENVIRONMENT
+    let fr_language = bf env FR_LANGUAGE
     let fr_base_url = bf env FR_BASE_URL
     let fr_db_type = bf env FR_DB_TYPE
     let fr_db_host = bf env FR_DB_HOST
@@ -41,6 +42,7 @@ def main [] {
         "--default_user" $fr_user
         "--environment" $fr_environment
         "--base_url" $fr_base_url
+        "--language" $fr_language
         "--db-type" $fr_db_type
         "--db-host" $fr_db_host
         "--db-user" $fr_db_user
