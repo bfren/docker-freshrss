@@ -50,6 +50,7 @@ def main [] {
         "--db-password" $fr_db_pass
         "--db-base" $fr_db_name
         "--db-prefix" $fr_db_prefix
+        "--disable_update" "true"
     ]
     ^php ./do-install.php ...$args
 
@@ -57,10 +58,6 @@ def main [] {
     bf write " .. creating user account"
     ^php ./create-user.php --user $fr_user --password $fr_pass
     ^php ./actualize-user.php --user $fr_user
-
-    # disable updates
-    bf write " .. disabling updates"
-    ^php ./reconfigure.php --disable_update "true"
 
     # reset permissions
     cd ..
