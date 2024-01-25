@@ -50,8 +50,8 @@ def main [] {
         "--db-password" $fr_db_pass
         "--db-base" $fr_db_name
         "--db-prefix" $fr_db_prefix
-    ] | str join " "
-    ^php ./do-install.php $args
+    ]
+    ^php ./do-install.php ...$args
 
     # create user
     bf write " .. creating user account"
