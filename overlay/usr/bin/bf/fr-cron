@@ -1,12 +1,12 @@
-#!/command/with-contenv bash
+#!/bin/withenv sh
 
 set -euo pipefail
 export BF_E=`basename ${0}`
 
 
 #======================================================================================================================
-# Refresh FreshRSS.
+# Execute FreshRSS cron
 #======================================================================================================================
 
-bf-debug "Refreshing FreshRSS feeds."
-php ${FRESHRSS_SRC}/app/actualize_script.php
+bf-write-debug "Executing FreshRSS cron." fr-cron
+^php "$(bf-env FR_SRC)/app/actualize_script.php"

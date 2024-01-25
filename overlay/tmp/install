@@ -1,94 +1,51 @@
-#!/bin/sh
+#!/usr/bin/nu
 
-set -euo pipefail
-export BF_E=`basename ${0}`
+use bf
+use bf-php
 
+# Absolute path to WordPress source directory
+const src = "/etc/bf/src/freshrss"
 
-#======================================================================================================================
-# Get PHP version.
-#======================================================================================================================
+def main [] {
+    # installed required and recommended extensions
+    cd /tmp
+    bf write $"Installing PHP extensions."
+    bf-php ext install_from_file
 
-cd /tmp
+    # install FreshRSS source files, content directory and default plugins
+    bf write debug $"FreshRSS source directory: ($src)."
+    install_source
 
-PHP_VERSION=$(cat PHP_BUILD)
-bf-echo "PHP version ${PHP_VERSION}."
+    # add bf-freshrss module to config
+    bf config use bf-freshrss
 
+    # cleanup
+    bf write "Removing /www files and directories."
+    rm -rf /www/*
+}
 
-#======================================================================================================================
-# Install PHP dependencies.
-#======================================================================================================================
+# Download and install FreshRSS source files
+def install_source [] {
+    # add dependencies
+    bf write "Adding installation dependencies." install_source
+    bf pkg install ["--virtual .install" "git"]
 
-bf-echo "Installing installation dependencies..."
-apk add --no-cache --virtual .install \
-    git
-bf-done
+    # get version
+    let fr_version = bf fs read FRESHRSS_REVISION
 
-bf-echo "Installing required PHP modules for v${PHP_VERSION}..."
-apk add --no-cache \
-    php82=${PHP_VERSION} \
-    php82-ctype=${PHP_VERSION} \
-    php82-curl=${PHP_VERSION} \
-    php82-dom=${PHP_VERSION} \
-    php82-fileinfo=${PHP_VERSION} \
-    php82-gmp=${PHP_VERSION} \
-    php82-iconv=${PHP_VERSION} \
-    php82-intl=${PHP_VERSION} \
-    php82-mbstring=${PHP_VERSION} \
-    php82-opcache=${PHP_VERSION} \
-    php82-pdo_mysql=${PHP_VERSION} \
-    php82-pdo_sqlite=${PHP_VERSION} \
-    php82-pdo_pgsql=${PHP_VERSION} \
-    php82-phar=${PHP_VERSION} \
-    php82-session=${PHP_VERSION} \
-    php82-simplexml=${PHP_VERSION} \
-    php82-tokenizer=${PHP_VERSION} \
-    php82-xml=${PHP_VERSION} \
-    php82-xmlreader=${PHP_VERSION} \
-    php82-xmlwriter=${PHP_VERSION} \
-    php82-zip=${PHP_VERSION}
-bf-done
+    # save FreshRSS version to build log
+    bf build add FreshRSS $fr_version
 
+    # clone source files
+    bf write $"Cloning FreshRSS ($fr_version) into ($src)."
+    ^git clone --depth 1 --branch $fr_version https://github.com/FreshRSS/FreshRSS $src
 
-#======================================================================================================================
-# Get FreeScout environment variables.
-#======================================================================================================================
+    # set permissions
+    bf write $"Setting permissions on ($src)." install_source
+    [$src "www:www" 0400 0500] | bf ch apply
+    cd $src
+    ^sh cli/access-permissions.sh
 
-SRC=/etc/bf/src
-bf-echo "Source directory: ${SRC}."
-
-FRESHRSS=freshrss
-FRESHRSS_SRC=${SRC}/${FRESHRSS}
-bf-echo "FreshRSS source directory: ${FRESHRSS_SRC}."
-
-FRESHRSS_VERSION=$(cat FRESHRSS_REVISION)
-bf-echo "FreshRSS version ${FRESHRSS_VERSION}."
-
-
-#======================================================================================================================
-# Download and install FreshRSS.
-#======================================================================================================================
-
-bf-echo "Cloning FreshRSS v${FRESHRSS_VERSION} into ${FRESHRSS_SRC}"
-git clone --depth 1 --branch ${FRESHRSS_VERSION} https://github.com/FreshRSS/FreshRSS ${FRESHRSS_SRC}
-bf-done
-
-
-#======================================================================================================================
-# Set permissions on source files.
-#======================================================================================================================
-
-bf-echo "Setting permissions on ${FRESHRSS_SRC}..."
-bf-ch -o www:www -m 0755 -t d ${FRESHRSS_SRC}
-bf-ch -o www:www -m 0644 -t f ${FRESHRSS_SRC}
-bf-done
-
-
-#======================================================================================================================
-# Cleanup.
-#======================================================================================================================
-
-bf-echo "Removing /www files and directories."
-rm -rf /www/*
-
-bf-echo "Removing installation dependencies."
-apk del .install
+    # remove installation dependencies
+    bf pkg remove [".install"]
+}
