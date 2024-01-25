@@ -31,11 +31,11 @@ def main [] {
 
     # use CLI to run automated installation
     bf write "Using CLI to install FreshRSS."
-    cd (bf env FR_SRC_CLI)
+    cd (bf env FR_SRC)
 
     # ensure all the needed directories are in the data dir
     bf write  " .. preparing data directories"
-    ^php ./prepare.php
+    ^php ./cli/prepare.php
 
     # install default database
     bf write " .. installing database"
@@ -52,16 +52,17 @@ def main [] {
         "--db-prefix" $fr_db_prefix
         "--disable_update" "true"
     ]
-    ^php ./do-install.php ...$args
+    ^php ./cli/do-install.php ...$args
 
     # create user
     bf write " .. creating user account"
-    ^php ./create-user.php --user $fr_user --password $fr_pass
-    ^php ./actualize-user.php --user $fr_user
+    ^php ./cli/create-user.php --user $fr_user --password $fr_pass
+    ^php ./cli/actualize-user.php --user $fr_user
 
     # reset permissions
     cd ..
     ^sh cli/access-permissions.sh
+    bf ch --owner www:www --recurse (bf env FR_DATA)
 
     # setup complete
     bf-freshrss install complete
