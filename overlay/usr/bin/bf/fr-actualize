@@ -1,0 +1,10 @@
+#!/usr/bin/nu
+
+use bf
+bf env load -x
+
+# Call FreshRSS actualize script.
+def main [] {
+    bf write debug "Actualizing FreshRSS feeds."
+    ^php $"(bf env FR_SRC)/app/actualize_script.php"
+}
