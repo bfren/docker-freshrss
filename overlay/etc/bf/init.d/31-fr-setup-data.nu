@@ -13,7 +13,7 @@ def main [] {
     # ensure /data is symlinked from source
     if ($fr_src_data | bf fs is_not_symlink) {
         bf write $"Deleting ($fr_src_data) and recreating it as a symlink."
-        bf del force $fr_src_data
+        rm --force --recursive $fr_src_data
         ^ln -s $fr_data $fr_src_data
     }
 
