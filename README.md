@@ -48,4 +48,4 @@ See the [Nginx + PHP](https://github.com/bfren/docker-nginx-php) image for detai
 
 ## Copyright
 
-> Copyright (c) 2021-2024 [bfren](https://bfren.dev) (unless otherwise stated)
+> Copyright (c) 2021-2025 [bfren](https://bfren.dev) (unless otherwise stated)
