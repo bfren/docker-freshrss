@@ -4,7 +4,7 @@
 
 [Docker Repository](https://hub.docker.com/r/bfren/freshrss) - [bfren ecosystem](https://github.com/bfren/docker)
 
-Comes with [FreshRSS](https://freshrss.org/) preinstalled, along with all the required and recommended PHP 8.3 modules.
+Comes with [FreshRSS](https://freshrss.org/) preinstalled, along with all the required and recommended PHP 8.4 modules.
 
 ## Contents
 
