@@ -6,7 +6,6 @@
 -iconv
 -intl
 -mbstring
--opcache
 -pdo_mysql
 -pdo_sqlite
 -pdo_pgsql
