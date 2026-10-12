@@ -1,1 +1,1 @@
-export module install.nu
+export use install.nu
