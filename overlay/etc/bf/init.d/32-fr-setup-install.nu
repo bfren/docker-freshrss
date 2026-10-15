@@ -17,15 +17,18 @@ def main [] {
     }
 
     # get variables
-    let fr_user = bf env FR_USER
-    let fr_pass = bf env FR_PASS
+    # BF_FR_USER_NAME / BF_FR_USER_PASS are documented (and set in the Dockerfile) - BF_FR_USER / BF_FR_PASS are read
+    # as a fallback because earlier versions only used those
+    let fr_user = bf env FR_USER_NAME (bf env --safe FR_USER)
+    let fr_pass = bf env FR_USER_PASS (bf env --safe FR_PASS)
     let fr_environment = bf env FR_ENVIRONMENT
     let fr_language = bf env FR_LANGUAGE
     let fr_base_url = bf env FR_BASE_URL
     let fr_db_type = bf env FR_DB_TYPE
-    let fr_db_host = bf env FR_DB_HOST
-    let fr_db_user = bf env FR_DB_USER
-    let fr_db_pass = bf env FR_DB_PASS
+    # host, user and password are not used by SQLite, so may be empty
+    let fr_db_host = bf env --safe FR_DB_HOST
+    let fr_db_user = bf env --safe FR_DB_USER
+    let fr_db_pass = bf env --safe FR_DB_PASS
     let fr_db_name = bf env FR_DB_NAME
     let fr_db_prefix = bf env FR_DB_PREFIX
 
