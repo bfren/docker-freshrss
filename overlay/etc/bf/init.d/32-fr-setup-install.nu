@@ -17,10 +17,9 @@ def main [] {
     }
 
     # get variables
-    # BF_FR_USER_NAME / BF_FR_USER_PASS are documented (and set in the Dockerfile) - BF_FR_USER / BF_FR_PASS are read
-    # as a fallback because earlier versions only used those
-    let fr_user = bf env FR_USER_NAME (bf env --safe FR_USER)
-    let fr_pass = bf env FR_USER_PASS (bf env --safe FR_PASS)
+    let credentials = bf-freshrss install credentials
+    let fr_user = $credentials.user
+    let fr_pass = $credentials.pass
     let fr_environment = bf env FR_ENVIRONMENT
     let fr_language = bf env FR_LANGUAGE
     let fr_base_url = bf env FR_BASE_URL

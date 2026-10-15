@@ -125,7 +125,7 @@ docker exec <container> fr-actualize
 ./test.sh        # builds the image and runs /test
 ```
 
-This image has no tests of its own. `/test` runs the tests inherited from the base images, and fails if tests don't execute.
+`/test` runs this image's tests alongside the base images' tests, and fails if tests don't execute. They check how the first user's name and password are read (including the older `BF_FR_USER` / `BF_FR_PASS` names), that installation is recorded, that FreshRSS matches the version in the build log, the required PHP extensions are loaded, and nginx accepts the configuration.
 
 ## Troubleshooting
 
