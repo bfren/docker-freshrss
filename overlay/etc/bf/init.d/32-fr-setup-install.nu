@@ -17,15 +17,17 @@ def main [] {
     }
 
     # get variables
-    let fr_user = bf env FR_USER
-    let fr_pass = bf env FR_PASS
+    let credentials = bf-freshrss install credentials
+    let fr_user = $credentials.user
+    let fr_pass = $credentials.pass
     let fr_environment = bf env FR_ENVIRONMENT
     let fr_language = bf env FR_LANGUAGE
     let fr_base_url = bf env FR_BASE_URL
     let fr_db_type = bf env FR_DB_TYPE
-    let fr_db_host = bf env FR_DB_HOST
-    let fr_db_user = bf env FR_DB_USER
-    let fr_db_pass = bf env FR_DB_PASS
+    # host, user and password are not used by SQLite, so may be empty
+    let fr_db_host = bf env --safe FR_DB_HOST
+    let fr_db_user = bf env --safe FR_DB_USER
+    let fr_db_pass = bf env --safe FR_DB_PASS
     let fr_db_name = bf env FR_DB_NAME
     let fr_db_prefix = bf env FR_DB_PREFIX
 
