@@ -137,6 +137,16 @@ The installation failed. The usual causes are a missing `BF_FR_BASE_URL`, `BF_FR
 
 The variables are only used on first start. Change the setting in FreshRSS instead, or (to start completely afresh) empty `/data` and the database.
 
+## FAQs
+
+### Can I use SQLite instead of a database server?
+
+Yes - set `BF_FR_DB_TYPE=sqlite` before the first start. The database is then kept in `/data`.
+
+### How do I update FreshRSS?
+
+Pull a newer tag and recreate the container. FreshRSS's own updater is turned off, because FreshRSS is read-only inside the image.
+
 ## Licence
 
 > [MIT](https://mit.bfren.dev/2021)
