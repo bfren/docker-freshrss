@@ -24,7 +24,7 @@ With a MariaDB database (e.g. [bfren/mariadb](https://github.com/bfren/docker-ma
 ```yaml
 services:
   freshrss:
-    image: quay.io/bfren/freshrss:5.1
+    image: quay.io/bfren/freshrss:5.2
     environment:
       - BF_FR_BASE_URL=https://rss.example.com
       - BF_FR_USER_NAME=ben
@@ -49,21 +49,20 @@ On first start FreshRSS is installed and your user created. Open the site and lo
 * ⏱️ Feeds refreshed every 15 minutes by cron
 * 🔒 FreshRSS's own updater turned off - updates come with the image
 * 🗜️ Everything from [Nginx + PHP](https://github.com/bfren/docker-nginx-php#features): PHP-FPM, OPcache, compression, logs and a health check
-* 🖥️ Built for `linux/amd64`, `linux/arm64` and `linux/arm/v7`
 
 ## Tags
 
-Images are published to Docker Hub (`bfren/freshrss`) and Quay.io (`quay.io/bfren/freshrss`). There is one build, on PHP 8.5.
+Images are published to Docker Hub (`bfren/freshrss`) and Quay.io (`quay.io/bfren/freshrss`) for `linux/amd64`, `linux/arm/v7` and `linux/arm64`. There is one build, on PHP 8.5.
 
 | Tag                                        | Example                     | Use when                                   |
 | ------------------------------------------ | --------------------------- | ------------------------------------------ |
 | `latest`                                   |                             | You always want the newest image           |
 | `MAJOR`                                    | `5`                         | You want updates, but not breaking changes |
-| `MINOR`                                    | `5.1`                       | You want fixes only - **recommended**      |
-| `VERSION`                                  | `5.1.23`                    | You want to pin this image exactly         |
+| `MINOR`                                    | `5.2`                       | You want fixes only - **recommended**      |
+| `VERSION`                                  | `5.2.0`                     | You want to pin this image exactly         |
 | `freshrssA`, `freshrssA.B`                 | `freshrss1`, `freshrss1.30` | You want to stay on a FreshRSS version     |
 | `freshrssA.B.C`                            | `freshrss1.30.1`            | You want an exact FreshRSS release         |
-| `freshrssA-VERSION`, `freshrssA.B-VERSION` | `freshrss1.30-5.1.23`       | You want to pin both                       |
+| `freshrssA-VERSION`, `freshrssA.B-VERSION` | `freshrss1.30-5.2.0`        | You want to pin both                       |
 
 ## Configuration
 
