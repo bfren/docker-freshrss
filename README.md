@@ -1,6 +1,6 @@
 # FreshRSS
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/bfren/docker-freshrss) ![Docker Pulls](https://img.shields.io/endpoint?url=https%3A%2F%2Fbfren.dev%2Fdocker%2Fpulls%2Ffreshrss) ![Docker Image Size](https://img.shields.io/endpoint?url=https%3A%2F%2Fbfren.dev%2Fdocker%2Fsize%2Ffreshrss) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/bfren/docker-freshrss/dev.yml?branch=main)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/bfren/docker-freshrss) ![Docker Pulls](https://img.shields.io/endpoint?url=https%3A%2F%2Fbfren.dev%2Fdocker%2Fpulls%2Ffreshrss) ![Docker Image Size](https://img.shields.io/endpoint?url=https%3A%2F%2Fbfren.dev%2Fdocker%2Fsize%2Ffreshrss) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/bfren/docker-freshrss/build.yml?branch=main)
 
 [Docker Hub](https://hub.docker.com/r/bfren/freshrss) - [Quay.io](https://quay.io/repository/bfren/freshrss) - [bfren ecosystem](https://github.com/bfren/docker)
 
@@ -10,7 +10,7 @@
 
 It is [Nginx + PHP](https://github.com/bfren/docker-nginx-php) (PHP 8.5) with:
 
-* FreshRSS 1.30.1 installed, read-only, outside your volume - so upgrading means pulling a new image
+* FreshRSS 1.30.4 installed, read-only, outside your volume - so upgrading means pulling a new image
 * the PHP extensions FreshRSS requires, including SQLite, MySQL and PostgreSQL drivers
 * automatic installation on first start, using environment variables - no set-up wizard
 * feeds refreshed every 15 minutes
@@ -24,7 +24,7 @@ With a MariaDB database (e.g. [bfren/mariadb](https://github.com/bfren/docker-ma
 ```yaml
 services:
   freshrss:
-    image: quay.io/bfren/freshrss:5.2
+    image: quay.io/bfren/freshrss:6.0
     environment:
       - BF_FR_BASE_URL=https://rss.example.com
       - BF_FR_USER_NAME=ben
@@ -57,12 +57,12 @@ Images are published to Docker Hub (`bfren/freshrss`) and Quay.io (`quay.io/bfre
 | Tag                                        | Example                     | Use when                                   |
 | ------------------------------------------ | --------------------------- | ------------------------------------------ |
 | `latest`                                   |                             | You always want the newest image           |
-| `MAJOR`                                    | `5`                         | You want updates, but not breaking changes |
-| `MINOR`                                    | `5.2`                       | You want fixes only - **recommended**      |
-| `VERSION`                                  | `5.2.0`                     | You want to pin this image exactly         |
+| `MAJOR`                                    | `6`                         | You want updates, but not breaking changes |
+| `MINOR`                                    | `6.0`                       | You want fixes only - **recommended**      |
+| `VERSION`                                  | `6.0.0`                     | You want to pin this image exactly         |
 | `freshrssA`, `freshrssA.B`                 | `freshrss1`, `freshrss1.30` | You want to stay on a FreshRSS version     |
-| `freshrssA.B.C`                            | `freshrss1.30.1`            | You want an exact FreshRSS release         |
-| `freshrssA-VERSION`, `freshrssA.B-VERSION` | `freshrss1.30-5.2.0`        | You want to pin both                       |
+| `freshrssA.B.C`                            | `freshrss1.30.4`            | You want an exact FreshRSS release         |
+| `freshrssA-VERSION`, `freshrssA.B-VERSION` | `freshrss1.30-6.0.0`        | You want to pin both                       |
 
 ## Configuration
 
