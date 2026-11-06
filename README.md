@@ -59,10 +59,10 @@ Images are published to Docker Hub (`bfren/freshrss`) and Quay.io (`quay.io/bfre
 | `latest`                                   |                             | You always want the newest image           |
 | `MAJOR`                                    | `6`                         | You want updates, but not breaking changes |
 | `MINOR`                                    | `6.0`                       | You want fixes only - **recommended**      |
-| `VERSION`                                  | `6.0.0`                     | You want to pin this image exactly         |
+| `VERSION`                                  | `6.0.1`                     | You want to pin this image exactly         |
 | `freshrssA`, `freshrssA.B`                 | `freshrss1`, `freshrss1.30` | You want to stay on a FreshRSS version     |
 | `freshrssA.B.C`                            | `freshrss1.30.4`            | You want an exact FreshRSS release         |
-| `freshrssA-VERSION`, `freshrssA.B-VERSION` | `freshrss1.30-6.0.0`        | You want to pin both                       |
+| `freshrssA-VERSION`, `freshrssA.B-VERSION` | `freshrss1.30-6.0.1`        | You want to pin both                       |
 
 ## Configuration
 
