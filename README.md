@@ -92,6 +92,8 @@ Images are published to Docker Hub (`bfren/freshrss`) and Quay.io (`quay.io/bfre
 | `freshrssA.B.C`                            | `freshrss1.30.4`            | You want an exact FreshRSS release         |
 | `freshrssA-VERSION`, `freshrssA.B-VERSION` | `freshrss1.30-6.0.5`        | You want to pin both                       |
 
+A new `MAJOR` version means a breaking change. Before moving to one, read the [changelog](CHANGELOG.md), where each breaking change is marked **Breaking**.
+
 ## Configuration
 
 ### Ports
