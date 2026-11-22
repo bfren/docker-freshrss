@@ -19,12 +19,16 @@ It is designed to run behind a reverse proxy that handles SSL, such as [Caddy Pr
 
 ## Quickstart
 
-With a MariaDB database (e.g. [bfren/mariadb](https://github.com/bfren/docker-mariadb)):
+`docker-compose.yml`, with a [MariaDB](https://github.com/bfren/docker-mariadb) database:
 
 ```yaml
 services:
   freshrss:
     image: quay.io/bfren/freshrss:6.0
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
     environment:
       - BF_FR_BASE_URL=https://rss.example.com
       - BF_FR_USER_NAME=ben
@@ -36,11 +40,25 @@ services:
       - "8080:80"
     volumes:
       - ./v/data:/data
+
+  db:
+    image: quay.io/bfren/mariadb:mariadb11.8-10.0
+    restart: unless-stopped
+    environment:
+      - BF_DB_ROOT_PASSWORD=change-me-root
+      - BF_DB_APPLICATION=freshrss
+      - BF_DB_PASSWORD=change-me-too
+    volumes:
+      - ./v/db:/data
 ```
 
-Or, without a database server, set `BF_FR_DB_TYPE=sqlite` (the database is then kept in `/data`).
+1. Change the passwords. `BF_FR_DB_PASS` and `BF_DB_PASSWORD` must match.
+2. Run `docker compose up -d`. FreshRSS waits until MariaDB is healthy, because the installation needs the database. Then FreshRSS is installed, using the database `freshrss`, and your user is created.
+3. Open `http://localhost:8080` and log in.
 
-On first start FreshRSS is installed and your user created. Open the site and log in.
+The environment variables are only used on that first start - after that, change settings in FreshRSS.
+
+To use SQLite instead of a database server, leave out the `db` service, `depends_on` and the `BF_FR_DB_*` variables, and set `BF_FR_DB_TYPE=sqlite`. The database is then kept in `/data`.
 
 ## Features
 
@@ -59,10 +77,10 @@ Images are published to Docker Hub (`bfren/freshrss`) and Quay.io (`quay.io/bfre
 | `latest`                                   |                             | You always want the newest image           |
 | `MAJOR`                                    | `6`                         | You want updates, but not breaking changes |
 | `MINOR`                                    | `6.0`                       | You want fixes only - **recommended**      |
-| `VERSION`                                  | `6.0.4`                     | You want to pin this image exactly         |
+| `VERSION`                                  | `6.0.5`                     | You want to pin this image exactly         |
 | `freshrssA`, `freshrssA.B`                 | `freshrss1`, `freshrss1.30` | You want to stay on a FreshRSS version     |
 | `freshrssA.B.C`                            | `freshrss1.30.4`            | You want an exact FreshRSS release         |
-| `freshrssA-VERSION`, `freshrssA.B-VERSION` | `freshrss1.30-6.0.4`        | You want to pin both                       |
+| `freshrssA-VERSION`, `freshrssA.B-VERSION` | `freshrss1.30-6.0.5`        | You want to pin both                       |
 
 ## Configuration
 
