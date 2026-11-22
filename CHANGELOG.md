@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [6.0.5] - Unreleased
 
+### Added
+
+- `docker-compose.yml` - the Quickstart example as a file you can copy.
+
 ### Fixed
 
 - README: the Quickstart is now numbered steps, and its example now includes the MariaDB database it connects to.
+- README: the Quickstart keeps its passwords in `.env`, and FreshRSS and MariaDB read the same `DB_PASSWORD`, so
+  the two can't differ.
 
 ## [6.0.4] - 2026-11-20
 

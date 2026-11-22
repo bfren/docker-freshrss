@@ -32,10 +32,10 @@ services:
     environment:
       - BF_FR_BASE_URL=https://rss.example.com
       - BF_FR_USER_NAME=ben
-      - BF_FR_USER_PASS=change-me
+      - BF_FR_USER_PASS=${FR_PASSWORD}
       - BF_FR_DB_HOST=db
       - BF_FR_DB_USER=freshrss
-      - BF_FR_DB_PASS=change-me-too
+      - BF_FR_DB_PASS=${DB_PASSWORD}
     ports:
       - "8080:80"
     volumes:
@@ -45,14 +45,24 @@ services:
     image: quay.io/bfren/mariadb:mariadb11.8-10.0
     restart: unless-stopped
     environment:
-      - BF_DB_ROOT_PASSWORD=change-me-root
+      - BF_DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
       - BF_DB_APPLICATION=freshrss
-      - BF_DB_PASSWORD=change-me-too
+      - BF_DB_PASSWORD=${DB_PASSWORD}
     volumes:
       - ./v/db:/data
 ```
 
-1. Change the passwords. `BF_FR_DB_PASS` and `BF_DB_PASSWORD` must match.
+This example is also in [`docker-compose.yml`](docker-compose.yml).
+
+`.env` (keep it out of version control):
+
+```sh
+FR_PASSWORD=change-me
+DB_ROOT_PASSWORD=change-me-root
+DB_PASSWORD=change-me-too
+```
+
+1. Change the passwords in `.env`. FreshRSS and MariaDB both read `DB_PASSWORD`, so the database password only needs setting once.
 2. Run `docker compose up -d`. FreshRSS waits until MariaDB is healthy, because the installation needs the database. Then FreshRSS is installed, using the database `freshrss`, and your user is created.
 3. Open `http://localhost:8080` and log in.
 
