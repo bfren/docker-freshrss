@@ -10,7 +10,7 @@
 
 It is [Nginx + PHP](https://github.com/bfren/docker-nginx-php) (PHP 8.5) with:
 
-* FreshRSS 1.30.4 installed, read-only, outside your volume - so upgrading means pulling a new image
+* FreshRSS 1.31.0 installed, read-only, outside your volume - so upgrading means pulling a new image
 * the PHP extensions FreshRSS requires, including SQLite, MySQL and PostgreSQL drivers
 * automatic installation on first start, using environment variables - no set-up wizard
 * feeds refreshed every 15 minutes
@@ -88,9 +88,9 @@ Images are published to Docker Hub (`bfren/freshrss`) and Quay.io (`quay.io/bfre
 | `MAJOR`                                    | `6`                         | You want updates, but not breaking changes |
 | `MINOR`                                    | `6.0`                       | You want fixes only - **recommended**      |
 | `VERSION`                                  | `6.0.5`                     | You want to pin this image exactly         |
-| `freshrssA`, `freshrssA.B`                 | `freshrss1`, `freshrss1.30` | You want to stay on a FreshRSS version     |
-| `freshrssA.B.C`                            | `freshrss1.30.4`            | You want an exact FreshRSS release         |
-| `freshrssA-VERSION`, `freshrssA.B-VERSION` | `freshrss1.30-6.0.5`        | You want to pin both                       |
+| `freshrssA`, `freshrssA.B`                 | `freshrss1`, `freshrss1.31` | You want to stay on a FreshRSS version     |
+| `freshrssA.B.C`                            | `freshrss1.31.0`            | You want an exact FreshRSS release         |
+| `freshrssA-VERSION`, `freshrssA.B-VERSION` | `freshrss1.31-6.0.5`        | You want to pin both                       |
 
 A new `MAJOR` version means a breaking change. Before moving to one, read the [changelog](CHANGELOG.md), where each breaking change is marked **Breaking**.
 

@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `docker-compose.yml` - the Quickstart example as a file you can copy.
 
+### Changed
+
+- FreshRSS updated to 1.31.0 - see the
+  [FreshRSS changelog](https://github.com/FreshRSS/FreshRSS/blob/1.31.0/CHANGELOG.md). It fixes a number of
+  security issues, and changes how the login password is checked.
+
 ### Fixed
 
 - README: the Quickstart is now numbered steps, and its example now includes the MariaDB database it connects to.
