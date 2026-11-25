@@ -1,0 +1,28 @@
+services:
+  freshrss:
+    image: quay.io/bfren/freshrss:6.0
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - BF_FR_BASE_URL=https://rss.example.com
+      - BF_FR_USER_NAME=ben
+      - BF_FR_USER_PASS=${FR_PASSWORD}
+      - BF_FR_DB_HOST=db
+      - BF_FR_DB_USER=freshrss
+      - BF_FR_DB_PASS=${DB_PASSWORD}
+    ports:
+      - "8080:80"
+    volumes:
+      - ./v/data:/data
+
+  db:
+    image: quay.io/bfren/mariadb:mariadb11.8-10.1
+    restart: unless-stopped
+    environment:
+      - BF_DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - BF_DB_APPLICATION=freshrss
+      - BF_DB_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./v/db:/data

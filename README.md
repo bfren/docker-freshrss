@@ -10,7 +10,7 @@
 
 It is [Nginx + PHP](https://github.com/bfren/docker-nginx-php) (PHP 8.5) with:
 
-* FreshRSS 1.30.4 installed, read-only, outside your volume - so upgrading means pulling a new image
+* FreshRSS 1.31.0 installed, read-only, outside your volume - so upgrading means pulling a new image
 * the PHP extensions FreshRSS requires, including SQLite, MySQL and PostgreSQL drivers
 * automatic installation on first start, using environment variables - no set-up wizard
 * feeds refreshed every 15 minutes
@@ -19,28 +19,56 @@ It is designed to run behind a reverse proxy that handles SSL, such as [Caddy Pr
 
 ## Quickstart
 
-With a MariaDB database (e.g. [bfren/mariadb](https://github.com/bfren/docker-mariadb)):
+`docker-compose.yml`, with a [MariaDB](https://github.com/bfren/docker-mariadb) database:
 
 ```yaml
 services:
   freshrss:
     image: quay.io/bfren/freshrss:6.0
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
     environment:
       - BF_FR_BASE_URL=https://rss.example.com
       - BF_FR_USER_NAME=ben
-      - BF_FR_USER_PASS=change-me
+      - BF_FR_USER_PASS=${FR_PASSWORD}
       - BF_FR_DB_HOST=db
       - BF_FR_DB_USER=freshrss
-      - BF_FR_DB_PASS=change-me-too
+      - BF_FR_DB_PASS=${DB_PASSWORD}
     ports:
       - "8080:80"
     volumes:
       - ./v/data:/data
+
+  db:
+    image: quay.io/bfren/mariadb:mariadb11.8-10.1
+    restart: unless-stopped
+    environment:
+      - BF_DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - BF_DB_APPLICATION=freshrss
+      - BF_DB_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./v/db:/data
 ```
 
-Or, without a database server, set `BF_FR_DB_TYPE=sqlite` (the database is then kept in `/data`).
+This example is also in [`docker-compose.yml`](docker-compose.yml).
 
-On first start FreshRSS is installed and your user created. Open the site and log in.
+`.env` (keep it out of version control):
+
+```sh
+FR_PASSWORD=change-me
+DB_ROOT_PASSWORD=change-me-root
+DB_PASSWORD=change-me-too
+```
+
+1. Change the passwords in `.env`. FreshRSS and MariaDB both read `DB_PASSWORD`, so the database password only needs setting once.
+2. Run `docker compose up -d`. FreshRSS waits until MariaDB is healthy, because the installation needs the database. Then FreshRSS is installed, using the database `freshrss`, and your user is created.
+3. Open `http://localhost:8080` and log in.
+
+The environment variables are only used on that first start - after that, change settings in FreshRSS.
+
+To use SQLite instead of a database server, leave out the `db` service, `depends_on` and the `BF_FR_DB_*` variables, and set `BF_FR_DB_TYPE=sqlite`. The database is then kept in `/data`.
 
 ## Features
 
@@ -59,10 +87,12 @@ Images are published to Docker Hub (`bfren/freshrss`) and Quay.io (`quay.io/bfre
 | `latest`                                   |                             | You always want the newest image           |
 | `MAJOR`                                    | `6`                         | You want updates, but not breaking changes |
 | `MINOR`                                    | `6.0`                       | You want fixes only - **recommended**      |
-| `VERSION`                                  | `6.0.4`                     | You want to pin this image exactly         |
-| `freshrssA`, `freshrssA.B`                 | `freshrss1`, `freshrss1.30` | You want to stay on a FreshRSS version     |
-| `freshrssA.B.C`                            | `freshrss1.30.4`            | You want an exact FreshRSS release         |
-| `freshrssA-VERSION`, `freshrssA.B-VERSION` | `freshrss1.30-6.0.4`        | You want to pin both                       |
+| `VERSION`                                  | `6.0.5`                     | You want to pin this image exactly         |
+| `freshrssA`, `freshrssA.B`                 | `freshrss1`, `freshrss1.31` | You want to stay on a FreshRSS version     |
+| `freshrssA.B.C`                            | `freshrss1.31.0`            | You want an exact FreshRSS release         |
+| `freshrssA-VERSION`, `freshrssA.B-VERSION` | `freshrss1.31-6.0.5`        | You want to pin both                       |
+
+A new `MAJOR` version means a breaking change. Before moving to one, read the [changelog](CHANGELOG.md), where each breaking change is marked **Breaking**.
 
 ## Configuration
 
