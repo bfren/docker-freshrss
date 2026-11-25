@@ -18,7 +18,7 @@ services:
       - ./v/data:/data
 
   db:
-    image: quay.io/bfren/mariadb:mariadb11.8-10.0
+    image: quay.io/bfren/mariadb:mariadb11.8-10.1
     restart: unless-stopped
     environment:
       - BF_DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
